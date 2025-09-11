@@ -1,0 +1,76 @@
+<div class="floating-shapes">
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<div class="page-container">
+  <section class="hero-section">
+    <h1 class="main-title">Ngô Văn Trung</h1>
+    <p class="subtitle">Frontend Developer</p>
+
+    <div class="hero-content">
+      <img src="assets/images/avatar.png" alt="Ngô Văn Trung" class="profile-image">
+
+      <div class="hero-text">
+        <p>Xin chào, tôi có niềm đam mê phục vụ khách hàng. Tạo ra những trang web đẹp mắt, dễ dàng
+          thao tác và sự mượt mà.</p>
+      </div>
+    </div>
+
+    <div class="social-section">
+      <div class="social-links">
+        <a href="https://www.facebook.com/vantrung.ngo.94" target="_blank" class="social-link facebook"
+          title="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://github.com/ngovantrung204-star" target="_blank" class="social-link github" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="ngovantrung204@gmail.com" class="social-link email" title="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+
+      <a href="/assets/images/CV - Ngô Văn Trung - Front End Developer.pdf" download class="cv-download">
+        <i class="fas fa-download"></i>
+        Tải xuống CV
+      </a>
+    </div>
+  </section>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const profileImg = document.querySelector('.profile-image');
+    profileImg.addEventListener('mouseenter', function () {
+      this.style.transform = 'scale(1.05) rotate(5deg)';
+    });
+
+    profileImg.addEventListener('mouseleave', function () {
+      this.style.transform = 'scale(1) rotate(0deg)';
+    });
+
+    const socialLinks = document.querySelectorAll('.social-link');
+    socialLinks.forEach(link => {
+      link.addEventListener('click', function (e) {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 150);
+      });
+    });
+
+    const typingText = document.querySelector('.typing-text');
+    let originalText = typingText.textContent;
+
+    typingText.addEventListener('mouseenter', function () {
+      this.style.animation = 'none';
+      this.textContent = '';
+      setTimeout(() => {
+        this.style.animation = 'typing 2s steps(60, end) forwards, blink-caret 0.75s step-end infinite';
+        this.textContent = originalText;
+      }, 100);
+    });
+  });
+</script>

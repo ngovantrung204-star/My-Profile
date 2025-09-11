@@ -1,0 +1,155 @@
+<div class="page-container">
+  <section class="contact-section">
+    <div class="contact-header">
+      <h2 class="section-title">Liên hệ</h2>
+      <p class="section-subtitle">Tôi rất mong nhận được phản hồi từ bạn.
+        Hãy gửi tin nhắn cho tôi và tôi sẽ phản hồi sớm nhất có thể.</p>
+    </div>
+    <div class="copied-message" *ngIf="copiedMessage">
+      {{ copiedMessage }}
+    </div>
+
+    <div class="contact-content">
+      <div class="contact-info">
+        <h3>Thông Tin Liên Lạc</h3>
+
+        <div class="info-item" (click)="copyEmail()">
+          <i class="fas fa-envelope"></i>
+          <div class="info-details">
+            <span class="info-label">Email</span>
+            <a>{{ contactInfo.email }}</a>
+          </div>
+          <span class="copy-hint" *ngIf="emailCopied">Đã copy!</span>
+        </div>
+
+        <div class="info-item" (click)="copySdt()">
+          <i class="fas fa-phone"></i>
+          <div class="info-details">
+            <span class="info-label">Phone</span>
+            <a>{{ contactInfo.sdt }}</a>
+          </div>
+          <span class="copy-hint" *ngIf="sdtCopied">Đã copy!</span>
+        </div>
+
+        <div class="info-item" (click)="copyDiachi()">
+          <i class="fas fa-map-marker-alt"></i>
+          <div class="info-details">
+            <span class="info-label">Location</span>
+            <a>{{ contactInfo.diachi }}</a>
+          </div>
+          <span class="copy-hint" *ngIf="diachiCopied">Đã copy!</span>
+        </div>
+
+        <div class="social-links">
+          <h4>Theo dõi tôi</h4>
+          <div class="social-icons">
+            <a href="https://github.com/ngovantrung204-star" target="_blank" rel="noopener" class="social-link">
+              <i class="fab fa-github"></i>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h2>Gửi tin nhắn</h2>
+        <div class="form-status success" *ngIf="submitStatus === 'success'">
+          <i class="fas fa-check-circle"></i>
+          Tin nhắn đã được gửi thành công! Tôi sẽ phản hồi sớm nhất có thể.
+        </div>
+
+        <div class="form-status error" *ngIf="submitStatus === 'error'">
+          <i class="fas fa-exclamation-circle"></i>
+          {{ errorMessage }}
+        </div>
+
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Họ tên *</label>
+              <input type="text" id="name" formControlName="name" placeholder="Nhập họ tên của bạn"
+                [class.error]="hasError('name')">
+
+              <div class="error-message" *ngIf="hasError('name', 'required')">
+                Họ tên là bắt buộc
+              </div>
+              <div class="error-message" *ngIf="hasError('name', 'minlength')">
+                Họ tên phải có ít nhất 2 ký tự
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+            <label for="email">Email *</label>
+            <input 
+              type="email" 
+              id="email"
+              formControlName="email"
+              placeholder="Nhập địa chỉ email"
+              [class.error]="hasError('email')">
+            
+            <div class="error-message" *ngIf="hasError('email', 'required')">
+              Email là bắt buộc
+            </div>
+            <div class="error-message" *ngIf="hasError('email', 'email')">
+              Email không hợp lệ
+            </div>
+          </div> -->
+          </div>
+
+          <div class="form-row">
+            <!-- <div class="form-group">
+            <label for="phone">Số điện thoại *</label>
+            <input 
+              type="tel" 
+              id="phone"
+              formControlName="phone"
+              placeholder="Nhập số điện thoại"
+              [class.error]="hasError('phone')">
+            
+            <div class="error-message" *ngIf="hasError('phone', 'required')">
+              Số điện thoại là bắt buộc
+            </div>
+            <div class="error-message" *ngIf="hasError('phone', 'pattern')">
+              Số điện thoại không hợp lệ
+            </div>
+          </div> -->
+
+            <div class="form-group">
+              <label for="subject">Tiêu đề *</label>
+              <input type="text" id="subject" formControlName="subject" placeholder="Nhập tiêu đề tin nhắn"
+                [class.error]="hasError('subject')">
+
+              <div class="error-message" *ngIf="hasError('subject', 'required')">
+                Tiêu đề là bắt buộc
+              </div>
+              <div class="error-message" *ngIf="hasError('subject', 'minlength')">
+                Tiêu đề phải có ít nhất 5 ký tự
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Tin nhắn *</label>
+            <textarea id="message" formControlName="message" rows="6" placeholder="Nhập nội dung tin nhắn..."
+              [class.error]="hasError('message')">
+          </textarea>
+
+            <div class="error-message" *ngIf="hasError('message', 'required')">
+              Tin nhắn là bắt buộc
+            </div>
+            <div class="error-message" *ngIf="hasError('message', 'minlength')">
+              Tin nhắn phải có ít nhất 10 ký tự
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" [disabled]="contactForm.invalid || isSubmitting"
+            [class.loading]="isSubmitting">
+            <i class="fas fa-paper-plane" *ngIf="!isSubmitting"></i>
+            <i class="fas fa-spinner fa-spin" *ngIf="isSubmitting"></i>
+            <span *ngIf="!isSubmitting">Gửi tin nhắn</span>
+            <span *ngIf="isSubmitting">Đang gửi...</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+</div>

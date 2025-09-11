@@ -23,17 +23,14 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/main.scss"
             ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "outputPath": "dist/trung-static"
           },
           "configurations": {
             "production": {
@@ -82,15 +79,19 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/main.scss"
             ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "d82084c4-b25f-47aa-8c5f-32563126823a"
   }
 }
